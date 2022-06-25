@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="ch.zhaw.searchstock.FirstFragment"
+        android:name="ch.zhaw.searchstock.StartFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_start">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
