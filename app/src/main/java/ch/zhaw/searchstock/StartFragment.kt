@@ -1,5 +1,6 @@
 package ch.zhaw.searchstock
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.navigation.fragment.findNavController
 import ch.zhaw.searchstock.databinding.FragmentStartBinding
 import com.android.volley.Request
@@ -48,16 +50,20 @@ class StartFragment : Fragment() {
         // Beispiel query with key
         //https://api.unsplash.com/search/photos?query=canada&client_id=hu_yKrF9g21PFsMUQLh7VMwcDoIgh9s_eBn4Szi_xsI
 
+        binding.searchInput.setOnClickListener() {
+            binding.searchInput.text.clear()
+        }
+
         binding.buttonSearch.setOnClickListener {
-            //read search text in
+            hideKeyboard()
+
             val searchText = binding.searchInput.text
-            if (!searchText.isEmpty()) {
+            if (searchText.isNotEmpty()) {
                 // create url
                 val urlSearch = "https://api.unsplash.com/search/photos?query=" + searchText + "&client_id=hu_yKrF9g21PFsMUQLh7VMwcDoIgh9s_eBn4Szi_xsI"
 
-                //create a request queue
                 val requestQueue = Volley.newRequestQueue(requireContext())
-                //define a request.
+
                 val request = StringRequest(
                     Request.Method.GET, urlSearch,
                     Response.Listener<String> { response ->
@@ -66,7 +72,7 @@ class StartFragment : Fragment() {
                         binding.imagesList.adapter = adapter
                     },
                     Response.ErrorListener {
-                        //use the porvided VolleyError to display
+                        //use the provided VolleyError to display
                         //an error message
                     })
                 //add the call to the request queue
@@ -90,12 +96,26 @@ class StartFragment : Fragment() {
  */
     }
 
+    fun hideKeyboard() {
+        val manager: InputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE)
+                    as InputMethodManager
+        if (manager != null) {
+            manager.hideSoftInputFromWindow(
+                requireActivity()
+                    .findViewById<View>(android.R.id.content).windowToken, 0)
+        }
+        binding.searchInput.clearFocus()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
 
+
+
 class Results(val results: List<ImageEntry>)
 
-class ImageEntry(val id: String)
+class ImageEntry(val alt_description: String)
