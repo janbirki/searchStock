@@ -1,16 +1,12 @@
 package ch.zhaw.searchstock
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.navigation.fragment.findNavController
 import ch.zhaw.searchstock.databinding.FragmentStartBinding
 import com.android.volley.Request
 import com.android.volley.Response
@@ -39,13 +35,9 @@ class StartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-/*
-        val inputStream = requireContext().resources.openRawResource(R.raw.photos)
-        // convert
-        val results = Klaxon().parse<Results>(inputStream)
-        val adapter = ImageAdapter(results!!.results, requireContext())
-        binding.imagesList.adapter = adapter
- */
+        //TODO: error handling if no pictures are coming back
+        //TODO: check for spaces in search input and add "-" in between
+        //TODO: create method for url creation
 
         // Beispiel query with key
         //https://api.unsplash.com/search/photos?query=canada&client_id=hu_yKrF9g21PFsMUQLh7VMwcDoIgh9s_eBn4Szi_xsI
@@ -71,9 +63,9 @@ class StartFragment : Fragment() {
                         val adapter = ImageAdapter(results!!.results, requireContext())
                         binding.imagesList.adapter = adapter
                     },
-                    Response.ErrorListener {
-                        //use the provided VolleyError to display
-                        //an error message
+                    Response.ErrorListener {error ->
+                        println(error.toString())
+                        //Toast.makeText(this@StartFragment, error, Toast.LENGTH_SHORT).show()
                     })
                 //add the call to the request queue
                 requestQueue.add(request)
@@ -118,4 +110,6 @@ class StartFragment : Fragment() {
 
 class Results(val results: List<ImageEntry>)
 
-class ImageEntry(val alt_description: String)
+class ImageEntry(val alt_description: String, val urls: UrlEntry)
+
+class UrlEntry(val small: String)

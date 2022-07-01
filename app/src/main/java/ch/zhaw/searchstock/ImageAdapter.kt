@@ -40,6 +40,7 @@ class ImageAdapter(var images: List<ImageEntry>, val context: Context) : BaseAda
         }
         val image = getItem(index) //get the data for this index
         binding.altDescription.text = image.alt_description
+        //binding.urlSmall.text = image.urls.small
 
         return view
     }
