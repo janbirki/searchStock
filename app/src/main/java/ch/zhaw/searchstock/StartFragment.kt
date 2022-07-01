@@ -83,17 +83,19 @@ class StartFragment : Fragment() {
 
         binding.imagesList.setOnItemClickListener { parent, view, pos, _ ->
             val id = parent.getItemIdAtPosition(pos)
-            println("clicked " + id.toString())
-            val bundle = bundleOf("PHOTO_ID" to data.get(id.toInt()).urls.small)
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+            bundleDataForSecondFragment(id.toInt())
         }
 
         binding.buttonRandom.setOnClickListener {
-            val id = Random.nextInt(0,9)
-            val bundle = bundleOf("PHOTO_ID" to data.get(id).urls.small)
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+            val id = Random.nextInt(0, data.size)
+            bundleDataForSecondFragment(id)
         }
 
+    }
+
+    fun bundleDataForSecondFragment(id: Int) {
+        val bundle = bundleOf("PHOTO_ID" to data.get(id).urls.small)
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
     }
 
     fun hideKeyboard() {
