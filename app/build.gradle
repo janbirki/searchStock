@@ -1,15 +1,17 @@
+
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "ch.zhaw.searchstock"
-        minSdk 29
-        targetSdk 32
+        minSdk 28
+        targetSdk 28
         versionCode 1
         versionName "1.0"
 

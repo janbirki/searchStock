@@ -10,11 +10,48 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import ch.zhaw.searchstock.databinding.ActivityMainBinding
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
+import android.util.Log
+import android.widget.ImageView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_main)
+//        title = "KotlinApp"
+//        DownloadImageFromInternet(findViewById(R.id.imageView)).execute("https://www.tierchenwelt.de/images/stories/fotos/saeugetiere/hasen/wildkaninchen/wild_kaninchen_l.jpg")
+//    }
+//    @SuppressLint("StaticFieldLeak")
+//    @Suppress("DEPRECATION")
+//    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+//        init {
+//            Toast.makeText(applicationContext, "Please wait, it may take a few minute...",     Toast.LENGTH_SHORT).show()
+//        }
+//        override fun doInBackground(vararg urls: String): Bitmap? {
+//            val imageURL = urls[0]
+//            var image: Bitmap? = null
+//            try {
+//                val `in` = java.net.URL(imageURL).openStream()
+//                image = BitmapFactory.decodeStream(`in`)
+//            }
+//            catch (e: Exception) {
+//                Log.e("Error Message", e.message.toString())
+//                e.printStackTrace()
+//            }
+//            return image
+//        }
+//        override fun onPostExecute(result: Bitmap?) {
+//            imageView.setImageBitmap(result)
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
