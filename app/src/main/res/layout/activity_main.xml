@@ -31,4 +31,32 @@
         android:layout_marginBottom="16dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+
+
+
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:padding="4dp"-->
+<!--    tools:context=".MainActivity">-->
+<!--    <TextView-->
+<!--        android:id="@+id/text"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:text="Load Image From URL in Android ImageView"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@android:color/holo_green_dark"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold" />-->
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@+id/text"-->
+<!--        android:layout_marginTop="5dp" />-->
+<!--</RelativeLayout>-->
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
