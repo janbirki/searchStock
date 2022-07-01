@@ -46,8 +46,13 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        DownloadImageFromInternet(view.findViewById(R.id.imageView)).execute("https://www.tierchenwelt.de/images/stories/fotos/saeugetiere/hasen/wildkaninchen/wild_kaninchen_l.jpg")
+        val photoId = arguments?.getString("PHOTO_ID")
+        DownloadImageFromInternet(view.findViewById(R.id.imageView)).execute(photoId)
+//        DownloadImageFromInternet(view.findViewById(R.id.imageView)).execute("https://www.tierchenwelt.de/images/stories/fotos/saeugetiere/hasen/wildkaninchen/wild_kaninchen_l.jpg")
 
+        binding.closeButton.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
 
 /*        binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
