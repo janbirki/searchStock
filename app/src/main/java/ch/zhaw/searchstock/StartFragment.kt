@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import ch.zhaw.searchstock.databinding.FragmentStartBinding
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.beust.klaxon.Klaxon
+import kotlin.random.Random
 
 class StartFragment : Fragment() {
 
@@ -21,6 +24,9 @@ class StartFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private var adapter: ImageAdapter? = null
+    private var data : MutableList<ImageEntry> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,13 +60,17 @@ class StartFragment : Fragment() {
                 // create url
                 val urlSearch = "https://api.unsplash.com/search/photos?query=" + searchText + "&client_id=hu_yKrF9g21PFsMUQLh7VMwcDoIgh9s_eBn4Szi_xsI"
 
+
+                adapter = ImageAdapter(data, requireContext())
                 val requestQueue = Volley.newRequestQueue(requireContext())
 
                 val request = StringRequest(
                     Request.Method.GET, urlSearch,
                     Response.Listener<String> { response ->
                         val results = Klaxon().parse<Results>(response)
-                        val adapter = ImageAdapter(results!!.results, requireContext())
+                        for (i in 0..9) {
+                            data.add(results!!.results.get(i))
+                        }
                         binding.imagesList.adapter = adapter
                     },
                     Response.ErrorListener {error ->
@@ -72,20 +82,11 @@ class StartFragment : Fragment() {
             }
         }
 
-/*
-        val imageURL = "https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=92f3e02f63678acc8416d044e189f515"
-        var image: Bitmap? = null
-        try {
-            val `in` = java.net.URL(imageURL).openStream()
-            image = BitmapFactory.decodeStream(`in`)
-            binding.imageView.setImageBitmap(image)
+        binding.buttonShow.setOnClickListener {
+            val id = Random.nextInt(0,9)
+            val bundle = bundleOf("PHOTO_ID" to data.get(id).urls.small)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
-        catch (e: Exception) {
-            Log.e("Error Message", e.message.toString())
-            e.printStackTrace()
-        }
-
- */
     }
 
     fun hideKeyboard() {
@@ -105,8 +106,6 @@ class StartFragment : Fragment() {
         _binding = null
     }
 }
-
-
 
 class Results(val results: List<ImageEntry>)
 
