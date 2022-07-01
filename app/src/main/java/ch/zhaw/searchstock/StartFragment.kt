@@ -60,7 +60,6 @@ class StartFragment : Fragment() {
                 // create url
                 val urlSearch = "https://api.unsplash.com/search/photos?query=" + searchText + "&client_id=hu_yKrF9g21PFsMUQLh7VMwcDoIgh9s_eBn4Szi_xsI"
 
-
                 adapter = ImageAdapter(data, requireContext())
                 val requestQueue = Volley.newRequestQueue(requireContext())
 
@@ -82,11 +81,19 @@ class StartFragment : Fragment() {
             }
         }
 
-        binding.buttonShow.setOnClickListener {
+        binding.imagesList.setOnItemClickListener { parent, view, pos, _ ->
+            val id = parent.getItemIdAtPosition(pos)
+            println("clicked " + id.toString())
+            val bundle = bundleOf("PHOTO_ID" to data.get(id.toInt()).urls.small)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+        }
+
+        binding.buttonRandom.setOnClickListener {
             val id = Random.nextInt(0,9)
             val bundle = bundleOf("PHOTO_ID" to data.get(id).urls.small)
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
+
     }
 
     fun hideKeyboard() {

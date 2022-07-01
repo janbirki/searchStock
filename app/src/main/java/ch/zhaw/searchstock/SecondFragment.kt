@@ -46,6 +46,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val photoId = arguments?.getString("PHOTO_ID")
         DownloadImageFromInternet(view.findViewById(R.id.imageView)).execute(photoId)
 //        DownloadImageFromInternet(view.findViewById(R.id.imageView)).execute("https://www.tierchenwelt.de/images/stories/fotos/saeugetiere/hasen/wildkaninchen/wild_kaninchen_l.jpg")
